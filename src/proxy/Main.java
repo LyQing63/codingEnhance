@@ -23,7 +23,7 @@ public class Main {
 
     static class MyAop implements MyHandler {
 
-        private MyInterface myInterface;
+        private final MyInterface myInterface;
 
         public MyAop(MyInterface myInterface) {
             this.myInterface = myInterface;
@@ -31,18 +31,15 @@ public class Main {
 
         @Override
         public String functionBody(String methodName) {
-            StringBuilder stringBuilder = new StringBuilder();
-             stringBuilder
-                     .append("System.out.println(\"before\");\n")
-                     .append("myInterface." + methodName + "();\n")
-                     .append("System.out.println(\"after\");\n");
-            return stringBuilder.toString();
+            return "System.out.println(\"before\");\n" +
+                    "myInterface." + methodName + "();\n" +
+                    "System.out.println(\"after\");\n";
         }
 
         @Override
         public void setProxy(MyInterface proxy){
             Class<? extends MyInterface> aClass = proxy.getClass();
-            Field field = null;
+            Field field;
             try {
                 field = aClass.getDeclaredField("myInterface");
                 field.setAccessible(true);
