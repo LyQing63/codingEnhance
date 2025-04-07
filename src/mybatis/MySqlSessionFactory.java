@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class MySqlSessionFactory {
+
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String JDBCURL = "jdbc:mysql://localhost:3306/coding_enhance";
     private static final String USER = "root";
@@ -23,7 +24,6 @@ public class MySqlSessionFactory {
     }
 
     static class MapperInvocationHandler implements InvocationHandler {
-
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
             if (method.getName().startsWith("select")) {
